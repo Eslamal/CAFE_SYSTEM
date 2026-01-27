@@ -75,4 +75,4 @@ We utilized **Clean Architecture** with the **MVVM (Model-View-ViewModel)** patt
 * Email: [eslameng776@gmail.com]
 
 ---
-*Developed with passion to solve real business problems.* 🚀****
+*Developed with passion to solve real business problems.*
