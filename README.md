@@ -1,53 +1,102 @@
-# ☕  Cafe System (POS & KDS)
+# ☕ Cafe POS & KDS (Enterprise Cafe Management System)
 
-**A production-ready Point of Sale (POS) and Kitchen Display System (KDS) designed for modern cafes, restaurants, and entertainment lounges.** Built from the ground up using **Native Android (Jetpack Compose)** and **Clean Architecture**, this system acts as a complete, scalable solution capable of standalone operations or SaaS-based deployment.
+![Kotlin](https://img.shields.io/badge/Kotlin-1.9-blue.svg?logo=kotlin)
+![Jetpack Compose](https://img.shields.io/badge/Jetpack%20Compose-Ready-4285F4?logo=android)
+![Firebase](https://img.shields.io/badge/Firebase-Firestore%20%7C%20Crashlytics-FFCA28?logo=firebase)
+![Clean Architecture](https://img.shields.io/badge/Architecture-Clean%20%7C%20MVVM-success)
+![Status](https://img.shields.io/badge/Status-Production%20Ready-brightgreen)
+
+**A production-ready Point of Sale (POS) and Kitchen Display System (KDS) designed for modern cafes, restaurants, and entertainment lounges.** Built from the ground up using **Native Android (Jetpack Compose)** and **Clean Architecture**, this system acts as a complete, scalable solution capable of standalone operations or White-Label B2B SaaS deployment.
 
 ---
 
 ## 🚀 The Story & Real-World Validation
-This project was not built in a vacuum. It is a tailored, battle-tested solution developed initially to address the specific operational challenges of **"Dahab Cafe"**.
+This project was not built in a vacuum. It was developed to address the specific, chaotic operational challenges of the hospitality industry. 
 
-The system seamlessly merges standard food and beverage ordering with **Dynamic Time-Based Billing** for gaming zones (e.g., PlayStation, Billiards, Ping Pong). 
-
-**💡 Client-Driven Evolution:**
-Throughout the development cycle, features were refined based on real-time feedback from cafe owners and staff. Key operational features like the **Isolated Shisha Station**, the **Multi-Rate Game Timer**, **Offline-first Sync**, and **ZATCA E-Invoicing** were implemented to ensure flawless daily operations.
+The system seamlessly merges standard food and beverage ordering with **Dynamic Time-Based Billing** for gaming zones (e.g., PlayStation, Billiards). Throughout the development cycle, features were refined based on real-time operational feedback, leading to the creation of advanced features like **Direct Payment Terminal Integration**, **Network Printer Routing**, **Kiosk Mode**, and **ZATCA Phase 1 E-Invoicing**.
 
 ---
 
-## ✨ Core Features & Modules
+## ✨ Core Features & The Complete Workflow
 
-### 📍 Multi-Zone & Table Management
-* **Distinct Zones:** Supports unlimited custom zones (General, Family, VIP, PlayStation, Billiards).
-* **Table States:** Real-time visual indicators for table status (Available, Occupied, Pending, Prepared).
-* **Merge & Move:** Effortlessly move customers or merge invoices across tables.
+### 📍 1. Dynamic Table & Zone Management
+* **Custom Zones:** Unlimited custom zones (General, VIP, PlayStation, Terrace).
+* **Live Table States:** Real-time visual indicators (Available, Occupied, Pending, Prepared).
+* **Smart Entertainment Timer:** Dual billing modes (Hourly Rate vs. Fixed Match Rate) running persistently.
 
-### ⏱️ Smart Entertainment Timer
-* **Dual Billing Modes:** Automatically calculates costs based on either **Duration** (Hourly Rate) or **Fixed Rounds** (Match Rate).
-* **Live Ticketing:** Timers run persistently and update pricing dynamically in real-time.
+### 🛒 2. Advanced Cashier Operations
+* **Draft Mode (Smart Editing):** Cashiers can edit/void items with "Void Reasons" before sending them to the kitchen.
+* **Complex Modifiers & Custom Items:** Add kitchen notes (e.g., "Extra Sugar") or create custom on-the-fly items.
+* **Split Checks & Mixed Payments:** Split bills equally or by specific items. Accept mixed payments (Cash + Visa) seamlessly.
 
-### 👨‍🍳 KDS (Kitchen Display System)
-* **Real-Time Sync:** Instant updates on the kitchen screen the moment an order is confirmed.
-* **Status Tracking:** Chefs can transition items through states (New ➔ Waiting ➔ Preparing ➔ Ready).
-* **Order Separation:** Specific views for the Kitchen and a dedicated isolated screen for the **Shisha Station** to streamline cafe workflow.
+### 💳 3. Direct Hardware & Payment Integration
+* **Smart POS Integration:** System is programmed to send HTTP requests/Intents directly to Bank Visa Terminals, waiting for automatic success/failure callbacks (Eliminates human entry errors).
+* **Hybrid Printing:** Supports both **Bluetooth Thermal Printers** and **Network/IP Printers**.
+* **Z-Reports (Shift Closing):** Generates and prints detailed financial shift reports directly from the Admin settings.
 
-### 🛒 Cashier & POS
-* **Draft Mode (Smart Editing):** Cashiers can edit, add, or remove quantities while an order is pending. Changes sync to the kitchen only upon confirmation.
-* **Auto-Calculation:** Instant calculation of Subtotal, Service fees, and Taxes based on Admin settings.
-* **Hardware Integration:** Seamless Bluetooth thermal printing integration.
+### 👨‍🍳 4. Smart Kitchen Routing (KDS)
+* **Station-Based Routing:** Admin can map specific categories to specific stations (Kitchen vs. Bar vs. Shisha).
+* **Hybrid Station Modes:** A station can be operated via a **Screen (Tablet KDS)**, a **Network Printer**, or **Both**.
+* **Real-Time Sync:** Instant UI updates across all devices via Firebase Snapshot Listeners.
 
-### 🧾 ZATCA Approved E-Invoicing
-* Fully compliant with Saudi Arabia's ZATCA Phase 1 regulations.
-* Generates a Base64 encoded TLV (Tag-Length-Value) QR Code containing the Cafe Name, VAT Number, Timestamp, Total, and Tax amount.
-* High-res Dynamic Receipt generation saved locally to the device.
+### 🧾 5. ZATCA Approved E-Invoicing
+* Generates a Base64 encoded TLV (Tag-Length-Value) QR Code containing the Cafe Name, VAT Number, Timestamp, Total, and Tax amount (Saudi Arabia Compliance).
+* High-res Dynamic Receipt generation saved locally to the device gallery.
 
-### ⚙️ Dynamic Admin Control Panel
-* **Menu Engineering:** Manage categories, products, prices, and kitchen routing.
-* **Facility Settings:** Control Service/Tax percentages, VAT numbers, and security PINs.
-* **Security:** Role-based access control protecting Admin and Cashier interfaces with custom PIN codes.
+### ⚙️ 6. Enterprise-Grade Admin Control
+* **Role-Based Access (RBAC):** PIN-protected access for Admin, Cashier, and Captain roles.
+* **White-Labeling:** Instant, runtime switching between **Arabic/English** and **Light/Dark modes** without app restarts.
 
-### 🌍 Localization & Theming
-* Instant, runtime switching between **Arabic/English**.
-* Full **Light/Dark mode** support, reacting instantly to user preference or system defaults without application restarts.
+---
+
+## 🛡️ Enterprise Stability & Security Features
+To survive the harsh environment of a busy cafe, the app incorporates:
+1. **Kiosk Mode (Screen Pinning):** Utilizing `startLockTask()` to lock the tablet to the POS app, preventing staff from accessing Android settings or other apps.
+2. **Keep Screen On:** Implemented `FLAG_KEEP_SCREEN_ON` for uninterrupted Cashier and KDS visibility.
+3. **Offline Persistence:** Firebase local caching is forcefully enabled. If the cafe's internet drops, the system continues to work and syncs automatically when the connection is restored.
+4. **Anti-Piracy Licensing:** A real-time Firebase listener binds a unique License Code to the hardware's `ANDROID_ID`. Unauthorized devices are instantly force-logged out.
+5. **Firebase Crashlytics:** Integrated for remote, real-time fatal/non-fatal crash tracking.
+
+---
+
+## 🔥 Engineering Challenges & Solutions
+
+Building a concurrent, multi-device POS system brought significant technical hurdles. Here is how they were solved:
+
+### Challenge 1: The "Draft vs. Server" State Conflict
+* **Problem:** If a cashier modifies an order while the KDS is reading from the server, data overwrites occurred.
+* **Solution:** Implemented a decoupled local state (`cartItems`) vs server state (`lastSentItems`) in the `CashierViewModel`. Edits remain local until the user explicitly triggers `sendToKitchen()`, which selectively updates the database and triggers printer intents only for `NEW` items.
+
+### Challenge 2: Handling Hardware Device Fragmentation
+* **Problem:** Cafes use a mix of Bluetooth printers for cashiers and IP-based LAN printers for kitchens.
+* **Solution:** Abstracted a `PrinterManager` interface that dynamically resolves the connection protocol based on the Admin's saved configuration (MAC address vs IPv4). 
+
+### Challenge 3: Missing Crashlytics Build IDs
+* **Problem:** During the CI/CD pipeline, `FirebaseInitProvider` crashed due to missing Build IDs.
+* **Solution:** Restructured the `build.gradle.kts` plugin hierarchy, ensuring `com.google.gms.google-services` executes strictly before the `crashlytics` plugin, paired with clean rebuilds to successfully inject the UUIDs into the APK.
+
+### Challenge 4: Asynchronous Payment Terminal Locks
+* **Problem:** Waiting for a physical Visa terminal to process a payment blocked the Main Thread.
+* **Solution:** Wrapped the payment HTTP request inside `viewModelScope.launch(Dispatchers.IO)`. Displayed a blocking "Waiting for Terminal" bottom sheet. Depending on the HTTP response code (Success/Fail), `withContext(Dispatchers.Main)` safely updates the UI and either triggers the receipt printer or shows a decline error.
+
+---
+
+## 🛠️ Tech Stack & Architecture
+
+Built adhering to **Modern Android Development (MAD)** standards.
+
+### 🏗️ Architecture
+* **Clean Architecture** with **MVVM (Model-View-ViewModel)**.
+* **Presentation Layer:** Jetpack Compose (Declarative UI), StateFlow.
+* **Domain Layer:** UseCases, Entities (Pure Kotlin Business Logic).
+* **Data Layer:** Repositories, Firebase, SharedPreferences.
+
+### 🚀 Libraries
+* **Jetpack Compose:** Reactive UI.
+* **Hilt (Dagger):** Dependency Injection.
+* **Firebase:** Firestore (Real-time DB), Crashlytics, Analytics.
+* **Coroutines & StateFlow:** Asynchronous programming.
+* **ZXing:** TLV QR Code generation.
 
 ---
 
@@ -62,54 +111,26 @@ Throughout the development cycle, features were refined based on real-time feedb
 | <img src="screens/10.jpg" width="250" /> | <img src="screens/11.jpg" width="250" /> | <img src="screens/12.jpg" width="250" /> |
 | <img src="screens/13.jpg" width="250" /> | <img src="screens/14.jpg" width="250" /> | <img src="screens/15.jpg" width="250" /> |
 | <img src="screens/16.jpg" width="250" /> | <img src="screens/17.jpg" width="250" /> | <img src="screens/18.jpg" width="250" /> |
-| <img src="screens/19.jpg" width="250" /> |
+| <img src="screens/19.jpg" width="250" /> | <img src="screens/20.jpg" width="250" /> | <img src="screens/21.jpg" width="250" /> |
+| <img src="screens/22.jpg" width="250" /> | <img src="screens/23.jpg" width="250" /> | <img src="screens/24.jpg" width="250" /> |
+| <img src="screens/25.jpg" width="250" /> | <img src="screens/26.jpg" width="250" /> | <img src="screens/27.jpg" width="250" /> |
+| <img src="screens/28.jpg" width="250" /> | <img src="screens/29.jpg" width="250" /> | <img src="screens/30.jpg" width="250" /> |
+| <img src="screens/31.jpg" width="250" /> | <img src="screens/32.jpg" width="250" /> | <img src="screens/33.jpg" width="250" /> |
+| <img src="screens/34.jpg" width="250" /> | <img src="screens/35.jpg" width="250" /> | <img src="screens/36.jpg" width="250" /> |
+| <img src="screens/37.jpg" width="250" /> | <img src="screens/38.jpg" width="250" /> | <img src="screens/39.jpg" width="250" /> |
+| <img src="screens/40.jpg" width="250" /> | <img src="screens/41.jpg" width="250" /> | <img src="screens/42.png" width="250" /> |
+
 </div>
-
 ---
 
-## 🛠️ Tech Stack & Architecture
-
-Built adhering to **Modern Android Development (MAD)** standards, ensuring high performance, scalability, and ease of future customization.
-
-### 🏗️ Architecture
-* **Clean Architecture** combined with the **MVVM (Model-View-ViewModel)** pattern.
-* **Presentation Layer:** Jetpack Compose (Declarative UI), ViewModels.
-* **Domain Layer:** UseCases, Entities (Pure Kotlin Business Logic).
-* **Data Layer:** Repositories, Room Database, Firebase.
-
-### 🚀 Libraries & Tools
-
-| Technology | Purpose |
-| :--- | :--- |
-| **Kotlin** | Primary programming language. |
-| **Jetpack Compose** | Reactive and modern UI toolkit. |
-| **Hilt (Dagger)** | Dependency Injection for scalable component management. |
-| **Room Database** | Offline-first local data persistence. |
-| **Firebase Firestore** | Real-time cloud database synchronization. |
-| **Coroutines & StateFlow** | Asynchronous programming and reactive UI states. |
-| **Navigation Compose** | In-app routing and backstack management. |
-| **ZXing** | Dynamic QR Code generation for ZATCA E-Invoicing. |
-
----
-
-## 🔄 Data Lifecycle & Synchronization
-
-1. **Action:** The Cashier modifies an order (Draft State).
-2. **Commit:** Upon submission, the ViewModel triggers a Domain UseCase.
-3. **Persistence & Sync:** The Repository updates the local Room DB and syncs the payload to Firebase Firestore.
-4. **Real-Time Observation:** The KDS and Shisha screens listen to these Firestore streams and update their UI instantly, enabling a seamless kitchen workflow without manual refreshing.
-
----
-
-## 🤝 White-Label & Commercial Use
+## 🤝 White-Label & Commercial Deployment
 This system architecture is heavily decoupled, making it extremely easy to **White-Label** for multiple clients. 
-* Operates effectively on Firebase's free tier for individual cafes.
-* Hidden SaaS modules (Authentication, Subscriptions) are pre-built and can be toggled on to pivot from a standalone product to a centralized SaaS platform.
+By altering `strings.xml`, `Theme.kt`, and swapping the `google-services.json`, a completely new branded POS system can be generated and deployed to a new client in under 15 minutes.
 
 ## 👤 Contact
 
-**[Eslam Ali Atta Rezq]** - Android Developer
-* Email: [eslameng776@gmail.com]
-
+**Eslam Ali Atta Rezq** - Android Software Engineer  
+* Email: [eslameng776@gmail.com]  
+* LinkedIn: [www.linkedin.com/in/eslam-ali-b0b874195]  
 ---
-*Developed with passion to solve real operational bottlenecks in the hospitality industry.*
+*Developed with passion to solve real operational bottlenecks in the F&B and hospitality industry.*
